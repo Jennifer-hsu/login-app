@@ -30,26 +30,16 @@ export function useForm() {
         return isValidationSucess;
     }
 
-    const handleChange=(id)=>{
-        var element = document.getElementById(id);
-        let valuesObj=saveGet(values);
+    const handleChange=(target)=>{     
+         let valuesObj=saveGet(values);
 
-        switch (id) {
-            case 'loginAccount':
-                valuesObj.account=element.value;
-                setValues(valuesObj);
-              break;
-            case 'loginPassword':
-                valuesObj.password=element.value;
-                setValues(valuesObj);
-              break;
-            case 'loginRememberMe':
-                valuesObj.rememberMe=element.checked;
-                setValues(valuesObj);
-            break;
-            default:
-                console.log('id is not correct.');
-        } 
+         if(target.name === 'rememberMe'){
+            valuesObj[target.name]=target.checked;
+         }else{
+            valuesObj[target.name]=target.value;
+         }
+         
+         setValues(valuesObj);
     }
 
     const handleSubmit=()=>{
